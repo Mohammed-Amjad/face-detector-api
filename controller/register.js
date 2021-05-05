@@ -62,5 +62,5 @@ const handleRegistration = (req, res, pgDatabase, bcrypt) => {
 }
 
 module.exports = {
-    handleRegistration : handleRegistration
+    handleRegistration: handleRegistration
 };
