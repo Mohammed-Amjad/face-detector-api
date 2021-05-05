@@ -2,6 +2,7 @@ const responses = require('../constants/responseConstant');
 
 const handleProfile = (req, res, pgDatabase) => {
     const { email } = req.params;
+    console.log("profile email", email);
 
     if (!email) {
         return res.status(400).json(responses.emptyEmailResponse);
