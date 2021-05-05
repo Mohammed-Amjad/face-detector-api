@@ -14,7 +14,7 @@ const handleRegistration = (req, res, pgDatabase, bcrypt) => {
     }
 
     // Decrypt
-    var bytes = CryptoJS.AES.decrypt(password, 'amjadkey');
+    var bytes = CryptoJS.AES.decrypt(password, 'secretKey');
     var secret = bytes.toString(CryptoJS.enc.Utf8);
 
     try {
