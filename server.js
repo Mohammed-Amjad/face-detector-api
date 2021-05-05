@@ -37,7 +37,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.put('/', (req, res) => res.send('Face detector server is up and running!'))
+app.get('/', (req, res) => res.json('Face detector server is up and running!'));
+
+app.get('/all', (req, res) => allusers.handleAllUsers(req, res, pgDatabase));
 
 app.post('/register', (req, res) => register.handleRegistration(req, res, pgDatabase, bcrypt));
 
