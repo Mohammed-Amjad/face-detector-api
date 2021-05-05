@@ -47,4 +47,4 @@ app.put('/use', (req, res) => use.handleUsage(req, res, pgDatabase))
 
 app.get('/all', (req, res) => allusers.handleAllUsers(req, res, pgDatabase))
 
-app.listen(3000, () => console.log('app is running on port 3000'));
+app.listen(process.env.PORT || 3000, () => console.log(`app is running on port ${process.env.PORT || 3000}`));
