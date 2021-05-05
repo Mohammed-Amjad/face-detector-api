@@ -1,4 +1,5 @@
 const responses = require('../constants/responseConstant');
+const CryptoJS = require("crypto-js");
 
 const handleRegistration = (req, res, pgDatabase, bcrypt) => {
 
@@ -12,10 +13,14 @@ const handleRegistration = (req, res, pgDatabase, bcrypt) => {
         return res.status(400).json(responses.emptyPasswordResponse);
     }
 
+    // Decrypt
+    var bytes = CryptoJS.AES.decrypt(password, 'amjadkey');
+    var secret = bytes.toString(CryptoJS.enc.Utf8);
+
     try {
         const saltRounds = 10;
         bcrypt.genSalt(saltRounds, function (err, salt) {
-            bcrypt.hash(password, salt, function (err, hash) {
+            bcrypt.hash(secret, salt, function (err, hash) {
                 // Store hash in your password DB.
                 pgDatabase.transaction(trx => {
                     trx('login')

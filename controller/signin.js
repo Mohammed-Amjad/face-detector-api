@@ -1,4 +1,5 @@
 const responses = require('../constants/responseConstant');
+const CryptoJS = require("crypto-js");
 
 const handleSigningIn = (req, res, pgDatabase, bcrypt) => {
     const { email, password } = req.body;
@@ -9,6 +10,10 @@ const handleSigningIn = (req, res, pgDatabase, bcrypt) => {
         return res.status(400).json(responses.emptyPasswordResponse);
     }
 
+    // Decrypt
+    var bytes = CryptoJS.AES.decrypt(password, 'amjadkey');
+    var secret = bytes.toString(CryptoJS.enc.Utf8);
+
     try {
         pgDatabase
             .select('*')
@@ -16,7 +21,7 @@ const handleSigningIn = (req, res, pgDatabase, bcrypt) => {
             .where({ email: email })
             .then(data => {
                 if (data.length > 0) {
-                    bcrypt.compare(password, data[0].secret, function (err, result) {
+                    bcrypt.compare(secret, data[0].secret, function (err, result) {
                         if (result) {
                             responses.successResponse.data = { email: data[0].email };
                             return res.status(200).json(responses.successResponse);
