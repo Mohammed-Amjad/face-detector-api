@@ -37,14 +37,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.put('/', (req, res) => res.send('Face detector server is up and running!'))
+
 app.post('/register', (req, res) => register.handleRegistration(req, res, pgDatabase, bcrypt));
 
 app.post('/signin', (req, res) => signin.handleSigningIn(req, res, pgDatabase, bcrypt));
 
 app.get('/profile/:email', (req, res) => profile.handleProfile(req, res, pgDatabase));
 
-app.put('/use', (req, res) => use.handleUsage(req, res, pgDatabase))
+app.put('/use', (req, res) => use.handleUsage(req, res, pgDatabase));
 
-app.get('/all', (req, res) => allusers.handleAllUsers(req, res, pgDatabase))
-
-app.listen(process.env.PORT || 3000, () => console.log(`app is running on port ${process.env.PORT || 3000}`));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`app is running on port ${PORT}`));
