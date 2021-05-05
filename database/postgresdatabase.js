@@ -8,7 +8,7 @@ const pgDatabase = knex({
         ssl: {
             rejectUnauthorized: false
         }
-    }
+//   }
 //     connecting in dev env
 //     connection: {
 //         host: '127.0.0.1',
